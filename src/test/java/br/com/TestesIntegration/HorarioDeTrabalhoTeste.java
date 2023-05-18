@@ -18,7 +18,7 @@ public class HorarioDeTrabalhoTeste {
 		ht.setIntervaloFim("13:20");
 		ht.setSaida("16:00");
 		
-		//cdao.salvar(ht);
+		cdao.salvar(ht);
 
 	
 	

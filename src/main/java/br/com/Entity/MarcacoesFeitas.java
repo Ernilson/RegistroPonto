@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class MarcacoesFeitas implements Serializable {
@@ -20,13 +22,17 @@ public class MarcacoesFeitas implements Serializable {
 	private String intervaloInicio;
 	private String intervaloFim;
 	private String saida;
+	
+	@ManyToOne
+    @JoinColumn(name = "cpf", referencedColumnName = "cpf", insertable = false, updatable = false)
+    private HorarioDeTrabalho horarioTrabalho;
 
 	public MarcacoesFeitas() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public MarcacoesFeitas(Long id, String cpf, String entrada, String intervaloInicio, String intervaloFim,
-			String saida) {
+			String saida, HorarioDeTrabalho horarioTrabalho) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
@@ -34,6 +40,7 @@ public class MarcacoesFeitas implements Serializable {
 		this.intervaloInicio = intervaloInicio;
 		this.intervaloFim = intervaloFim;
 		this.saida = saida;
+		this.horarioTrabalho = horarioTrabalho;
 	}
 
 	public Long getId() {
@@ -84,6 +91,14 @@ public class MarcacoesFeitas implements Serializable {
 		this.saida = saida;
 	}
 
+	public HorarioDeTrabalho getHorarioTrabalho() {
+		return horarioTrabalho;
+	}
+
+	public void setHorarioTrabalho(HorarioDeTrabalho horarioTrabalho) {
+		this.horarioTrabalho = horarioTrabalho;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,7 +127,10 @@ public class MarcacoesFeitas implements Serializable {
 	@Override
 	public String toString() {
 		return "MarcacoesFeitas [id=" + id + ", cpf=" + cpf + ", entrada=" + entrada + ", intervaloInicio="
-				+ intervaloInicio + ", intervaloFim=" + intervaloFim + ", saida=" + saida + "]";
+				+ intervaloInicio + ", intervaloFim=" + intervaloFim + ", saida=" + saida + ", horarioTrabalho="
+				+ horarioTrabalho + "]";
 	}
+
+	
 
 }
