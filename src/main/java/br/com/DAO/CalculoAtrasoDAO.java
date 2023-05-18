@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.DTOs.ResultadoCalculoAtraso;
 import br.com.Entity.CalculoAtraso;
@@ -130,13 +131,14 @@ public class CalculoAtrasoDAO {
 	    public List<CalculoAtraso> listarTodos() {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
 	        try {
-	            String jpql = "SELECT r FROM atraso r";
-	            Query query = entityManager.createQuery(jpql);
+	            String jpql = "SELECT m FROM CalculoAtraso m";
+	            TypedQuery<CalculoAtraso> query = entityManager.createQuery(jpql, CalculoAtraso.class);
 	            return query.getResultList();
 	        } finally {
 	            entityManager.close();
 	        }
 	    }
+
 
 	    public HorarioDeTrabalho buscarPorCpf(String cpf) {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();

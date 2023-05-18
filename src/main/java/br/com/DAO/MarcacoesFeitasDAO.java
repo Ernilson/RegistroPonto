@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.Entity.MarcacoesFeitas;
 
@@ -57,8 +58,8 @@ public class MarcacoesFeitasDAO {
 	    public List<MarcacoesFeitas> listarTodos() {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
 	        try {
-	            String jpql = "SELECT r FROM RegistroPonto r";
-	            Query query = entityManager.createQuery(jpql);
+	            String jpql = "SELECT m FROM MarcacoesFeitas m";
+	            TypedQuery<MarcacoesFeitas> query = entityManager.createQuery(jpql, MarcacoesFeitas.class);
 	            return query.getResultList();
 	        } finally {
 	            entityManager.close();
