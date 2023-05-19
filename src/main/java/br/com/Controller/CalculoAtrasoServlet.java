@@ -19,11 +19,10 @@ public class CalculoAtrasoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private CalculoAtrasoDAO calculoAtrasoDAO;
-
-
+   
     public void init() {
-        calculoAtrasoDAO = new CalculoAtrasoDAO();     
-        //  listaratrasos();
+        calculoAtrasoDAO = new CalculoAtrasoDAO();        
+          listaratrasos();
 }
     
     private void listaratrasos() {
@@ -40,7 +39,8 @@ public class CalculoAtrasoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "calcularAtraso":
-                    String cpf = request.getParameter("cpf");
+                	String cpf = calculoAtrasoDAO.buscarUltimoRegistro();
+                	request.getParameter("cpf");
                     String entrada = request.getParameter("entrada");
                     String saida = request.getParameter("saida");
                     
@@ -61,14 +61,9 @@ public class CalculoAtrasoServlet extends HttpServlet {
     }
     
     public void adicionarAtraso(String cpf, String entrada, String saida, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (cpf == null || cpf.isEmpty() || entrada == null || entrada.isEmpty() || saida == null || saida.isEmpty()) {
-            throw new Exception("Todos os campos devem ser preenchidos");
-        }   
-        ResultadoCalculoAtraso marcacoesParaCalculo = new ResultadoCalculoAtraso();
-        marcacoesParaCalculo.setCpf(cpf);        
-        marcacoesParaCalculo.setEntrada(entrada);
-        marcacoesParaCalculo.setSaida(saida);
-        calculoAtrasoDAO.calcularEInserirAtraso(marcacoesParaCalculo.getCpf());
+    	//String cpfd = calculoAtrasoDAO.buscarUltimoRegistro();    	
+    	
+        calculoAtrasoDAO.calcularEInserirAtraso(cpf);
         listarAtrasos(request, response);        
     }
 

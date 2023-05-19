@@ -56,7 +56,7 @@ public class CalculoAtrasoDAO {
 		return "Sem atraso.";
 	}
 	
-	public ResultadoCalculoAtraso calculoDeHorasExtras(String cpf) {
+	public static ResultadoCalculoAtraso calculoDeHorasExtras(String cpf) {
 	    MarcacoesFeitasDAO mfdao = new MarcacoesFeitasDAO();
 	    MarcacoesFeitas mf = mfdao.buscarPorCpf(cpf);
 	    HoraDeTrabalhoDAO hdtdao = new HoraDeTrabalhoDAO();
@@ -96,7 +96,7 @@ public class CalculoAtrasoDAO {
    }
 
 	    
-	    public void calcularEInserirAtraso(String cpf) {
+	    public static void calcularEInserirAtraso(String cpf) {
 	        ResultadoCalculoAtraso resultado = calculoDeHorasExtras(cpf);
 	        
 	        String atraso = resultado.getDiferenca();
@@ -139,7 +139,6 @@ public class CalculoAtrasoDAO {
 	        }
 	    }
 
-
 	    public HorarioDeTrabalho buscarPorCpf(String cpf) {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
 	        try {
@@ -150,8 +149,30 @@ public class CalculoAtrasoDAO {
 	            entityManager.close();
 	        }
 	    }
+//-->
+	    public String buscarUltimoRegistro() {
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+		    try {
+		        String jpql = "SELECT hdt FROM HorarioDeTrabalho hdt ORDER BY hdt.cpf DESC";
+		        TypedQuery<HorarioDeTrabalho> query = entityManager.createQuery(jpql, HorarioDeTrabalho.class);
+		        query.setMaxResults(1);
 
+		        List<HorarioDeTrabalho> resultados = query.getResultList();
 
+		        if (!resultados.isEmpty()) {
+		            HorarioDeTrabalho ultimoRegistro = resultados.get(0);
+		            // Construa a representação em formato de String do último registro
+		            String representacao = ultimoRegistro.getCpf();
+		            // Substitua os getters e formate a representação conforme sua necessidade
+
+		            return representacao;
+		        }
+
+		        return null; // Retorna null caso não seja encontrado nenhum registro
+		    } finally {
+		        entityManager.close();
+		    }
+		}
 	   
 
 

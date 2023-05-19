@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.DAO.HoraDeTrabalhoDAO;
+import br.com.DAO.MarcacoesFeitasDAO;
 import br.com.Entity.HorarioDeTrabalho;
+import br.com.Entity.MarcacoesFeitas;
 
 @WebServlet("/HoraDeTrabalhoServlet")
 public class HoraDeTrabalhoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private HoraDeTrabalhoDAO horaDeTrabalhoDAO;
+	
 
 	public void init() throws ServletException {
 		super.init();
@@ -78,12 +81,15 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 		}
 
 		HorarioDeTrabalho horario = new HorarioDeTrabalho();
+
 		horario.setCpf(cpf);
 		horario.setEntrada(entrada);
 		horario.setIntervaloInicio(intervaloInicio);
 		horario.setIntervaloFim(intervaloFim);
-		horario.setSaida(saida);
-		horaDeTrabalhoDAO.salvar(horario);
+		horario.setSaida(saida);		
+
+		horaDeTrabalhoDAO.salvar(horario);	
+
 		listarHorarios(request, response);
 	}
 

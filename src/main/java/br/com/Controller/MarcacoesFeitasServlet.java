@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.DAO.CalculoAtrasoDAO;
 import br.com.DAO.MarcacoesFeitasDAO;
 import br.com.Entity.MarcacoesFeitas;
 
@@ -16,10 +17,13 @@ import br.com.Entity.MarcacoesFeitas;
 public class MarcacoesFeitasServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
-    private MarcacoesFeitasDAO marcacoesFeitasDAO;    
+    private MarcacoesFeitasDAO marcacoesFeitasDAO; 
+    private CalculoAtrasoDAO trabalho;
 
     public void init() {
         marcacoesFeitasDAO = new MarcacoesFeitasDAO();
+        trabalho = new CalculoAtrasoDAO();
+        
       //Para que os horários permaneçam listado ao navegar na tela
         listarMarcacoes();
     }
@@ -33,18 +37,42 @@ public class MarcacoesFeitasServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {   
     	//Teste
+   	 System.out.println("Iniciando doPost() em MarcacoesFeitasDAO");
+		String action = request.getParameter("action");
+		
+    	try {
+			switch (action) {
+			case "add":
+				adicionarMarcacao(request, response);
+				break;
+			case "delete_all":
+				//removerHorario(request, response);
+				break;
+			case "delete":
+				//removerHorarioPorId(request, response);
+				break;
+			 case "edit":
+	            //    atualizarHorario(request, response);
+	                break;
+			default:
+				listarMarcacoes(request, response);
+				break;
+			}
+		} catch (Exception e) {
+			// trata a exceção
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.getWriter().write("Ocorreu um erro ao processar a solicitação: " + e.getMessage());
+		}
+    	//Teste
     	 System.out.println("Iniciando doPost() em MarcacoesFeitasDAO");
-        try {
-        	adicionarMarcacao(request, response);
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }       
+       
     }
 
     private void adicionarMarcacao(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-    	String cpf = request.getParameter("cpf");
-        String entrada = request.getParameter("entrada");
+    	String cpf = trabalho.buscarUltimoRegistro();
+    	request.getParameter("cpf");
+    	String entrada = request.getParameter("entrada");
         String intervaloInicio = request.getParameter("intervaloInicio");
         String intervaloFim = request.getParameter("intervaloFim");
         String saida = request.getParameter("saida");
@@ -103,11 +131,11 @@ public class MarcacoesFeitasServlet extends HttpServlet {
                     break;
                 
                 default:
-                	//listarMarcacoes(request, response);
+                	listarMarcacoes(request, response);
                     break;
             }
         } else {
-        	//listarMarcacoes(request, response);
+        	listarMarcacoes(request, response);
         }
     }
 }

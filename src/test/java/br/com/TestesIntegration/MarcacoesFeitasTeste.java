@@ -17,7 +17,7 @@ public class MarcacoesFeitasTeste {
 			mf.setIntervaloFim("13:20");
 			mf.setSaida("16:00");
 			
-			mfdao.salvar(mf);
+			//mfdao.salvar(mf);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -25,19 +25,20 @@ public class MarcacoesFeitasTeste {
 		
 		//---------------------------------------Metodo para Listar todos os registros-----------------------------------------------------
 	//	
-		try {
-			List<MarcacoesFeitas> horarios = mfdao.listarTodos();
+//		try {
+//			List<MarcacoesFeitas> horarios = mfdao.listarTodos();
+//
+//			for (MarcacoesFeitas mfs : horarios) {
+//				System.out.println("CPF: " + mf.getCpf() + "Entrada: " + mf.getEntrada() + ", Saï¿½da: " + mfs.getSaida() + 
+//						", IntervaloInicio: " + mfs.getIntervaloInicio() + ", IntervaloFim: " + mfs.getIntervaloFim());
+//			}
+//
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		}
 
-			for (MarcacoesFeitas mfs : horarios) {
-				System.out.println("CPF: " + mf.getCpf() + "Entrada: " + mf.getEntrada() + ", Saï¿½da: " + mfs.getSaida() + 
-						", IntervaloInicio: " + mfs.getIntervaloInicio() + ", IntervaloFim: " + mfs.getIntervaloFim());
-			}
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-
+		mf.setCpf("6977984000");
+		mfdao.buscarPorCpf(mf.getCpf() + "Entrada" + mf.getEntrada());
 		
 	}
 

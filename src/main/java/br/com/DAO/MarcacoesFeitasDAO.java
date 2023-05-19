@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -25,7 +26,7 @@ public class MarcacoesFeitasDAO {
 	            entityManager.persist(registroPonto);
 	            entityManager.getTransaction().commit();
 	        } catch (Exception e) {
-	            entityManager.getTransaction().rollback();
+	            entityManager.getTransaction().rollback();	        	
 	        } finally {
 	            entityManager.close();
 	        }
@@ -47,13 +48,22 @@ public class MarcacoesFeitasDAO {
 	    public MarcacoesFeitas buscarPorCpf(String cpf) {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
 	        try {
-	            Query query = entityManager.createQuery("SELECT h FROM marcacoesfeitas h WHERE h.cpf = :cpf");
+	            TypedQuery<MarcacoesFeitas> query = entityManager.createQuery(
+	                "SELECT m FROM MarcacoesFeitas m WHERE m.cpf = :cpf", MarcacoesFeitas.class);
 	            query.setParameter("cpf", cpf);
-	            return (MarcacoesFeitas) query.getSingleResult();
+	            List<MarcacoesFeitas> resultados = query.getResultList();
+	            if (resultados.isEmpty()) {
+	                return null;  // ou lançar uma exceção adequada
+	            } else if (resultados.size() > 1) {
+	                // Tratar o caso de mais de um resultado retornado, se necessário
+	            }
+	            return resultados.get(0);
 	        } finally {
 	            entityManager.close();
 	        }
 	    }
+
+
 
 	    public List<MarcacoesFeitas> listarTodos() {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();

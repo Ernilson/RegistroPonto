@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.Entity.HorarioDeTrabalho;
 
@@ -128,6 +129,32 @@ public class HoraDeTrabalhoDAO {
             entityManager.close();
         }
     }
+    
+    public String buscarUltimoRegistro() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            String jpql = "SELECT hdt FROM HorarioDeTrabalho hdt ORDER BY hdt.data DESC";
+            TypedQuery<HorarioDeTrabalho> query = entityManager.createQuery(jpql, HorarioDeTrabalho.class);
+            query.setMaxResults(1);
+
+            List<HorarioDeTrabalho> resultados = query.getResultList();
+
+            if (!resultados.isEmpty()) {
+                HorarioDeTrabalho ultimoRegistro = resultados.get(0);
+                // Construa a representação em formato de String do último registro
+                String representacao = "ID: " + ultimoRegistro.getId() +  ", CPF: " + ultimoRegistro.getCpf();
+                // Substitua os getters e formate a representação conforme sua necessidade
+
+                return representacao;
+            }
+
+            return null; // Retorna null caso não seja encontrado nenhum registro
+        } finally {
+            entityManager.close();
+        }
+    }
+
+
 
 
 }

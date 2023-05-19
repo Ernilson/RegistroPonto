@@ -142,8 +142,8 @@
 	}	  
 	
 	// preenche o valor do campo "cpf" com o valor do CPF do usuário logado
-	  var cpf = "01439869103"; // substitua por uma chamada à API de autenticação ou por um valor dinâmico
-	  document.getElementById("cpf").value = cpf;
+	 // var cpf = "01439869103"; // substitua por uma chamada à API de autenticação ou por um valor dinâmico
+	 // document.getElementById("cpf").value = cpf;
 	  
   //para aplicar automaticamente a máscara ao campo de valor hora
   $(document).ready(function() {

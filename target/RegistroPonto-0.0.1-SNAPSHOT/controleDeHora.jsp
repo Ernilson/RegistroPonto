@@ -97,25 +97,19 @@
 			</tr>	
 		</thead>
 		<tbody>
-<<<<<<< HEAD
+
 			<c:forEach var="at" items="${atraso}">
-=======
+
 			<c:forEach var="ats" items="${at}">
->>>>>>> f7ebaaf26b0257b9afad7a1bf04762570dc04726
+
 				<tr>
 					<td>${at.periodoAtraso}</td>
 					<td>${at.entrada}</td>
 				</tr>
-<<<<<<< HEAD
 				 console.log(${at.id});				
+			</c:forEach>			
 			</c:forEach>
-			
-=======
-				 <script>
-    console.log(${at}); // aqui está o console.log() que você pode adicionar
-  </script>
-			</c:forEach>
->>>>>>> f7ebaaf26b0257b9afad7a1bf04762570dc04726
+
 		</tbody>
 	</table>
 	<h2 class="comMargem">Hora Extra</h2>
@@ -124,12 +118,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 	<script>
-
-<<<<<<< HEAD
     console.log(${at.id}); // aqui está o console.log() que você pode adicionar
-=======
+
     console.log(${horario}); // aqui está o console.log() que você pode adicionar
->>>>>>> f7ebaaf26b0257b9afad7a1bf04762570dc04726
  
 	function editarHorario(id) {
         // Redireciona para a página de edição passando o ID como parâmetro na URL

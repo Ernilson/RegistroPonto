@@ -1,10 +1,14 @@
 br\com\Entity\HorarioDeTrabalho.class
 br\com\DAO\CalculoAtrasoDAO.class
+br\com\Controller\MarcacoesFeitasServlet.class
 br\com\Utils\teste.class
+br\com\Controller\CalculoHoraExtraServlet.class
 br\com\DAO\HoraDeTrabalhoDAO.class
 br\com\DTOs\ResultadoCalculoAtraso.class
+br\com\Controller\CalculoAtrasoServlet.class
 br\com\Entity\MarcacoesFeitas.class
 br\com\Entity\CalculoAtraso.class
+br\com\Controller\HoraDeTrabalhoServlet.class
 br\com\Utils\CodigoErro.class
 br\com\DAO\CalculoHoraExtraDAO.class
 br\com\Entity\CalculoHoraExtra.class
